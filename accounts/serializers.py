@@ -6,6 +6,7 @@ from .models import Account
 
 
 class AccountSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     username = serializers.CharField(
         required=True,
         validators=[
