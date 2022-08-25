@@ -1,17 +1,38 @@
 from rest_framework import generics
 from rest_framework.views import APIView, Response, status
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
 
 from django.contrib.auth import authenticate
 
+from commerce.pages import CustomPageNumberPagination
+
+from .permissions import SelfAndAdminPermissionsCustom, AdminPermissionsCustom
 from .models import Account
-from .serializers import AccountSerializer, LoginSerializer
+from .serializers import AccountSerializer, LoginSerializer, AdminSerializer
 
 
 class AccountView(generics.ListCreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
+    pagination_class = CustomPageNumberPagination
+
+
+class AccountDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [SelfAndAdminPermissionsCustom]
+    authentication_classes = [TokenAuthentication]
+
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
+
+
+class AdminDetailView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [AdminPermissionsCustom]
+    authentication_classes = [TokenAuthentication]
+
+    queryset = Account.objects.all()
+    serializer_class = AdminSerializer
 
 class AccountNewestView(generics.ListAPIView):
     queryset = Account.objects.all()
