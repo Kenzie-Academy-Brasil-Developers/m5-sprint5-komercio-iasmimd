@@ -12,10 +12,7 @@ class ProductView(SerializerByMethodMixin, generics.ListCreateAPIView):
     permission_classes = [ProductPermissionsCustom]
 
     queryset = Product.objects.all()
-    serializer_map = {
-        'GET': ProductSerializer,
-        'POST': ProductDetailSerializer
-    }
+    serializer_map = {"GET": ProductSerializer, "POST": ProductDetailSerializer}
 
     def perform_create(self, serializer):
         serializer.save(seller=self.request.user)
@@ -24,6 +21,6 @@ class ProductView(SerializerByMethodMixin, generics.ListCreateAPIView):
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [ProductPermissionsCustom]
-    
+
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer
