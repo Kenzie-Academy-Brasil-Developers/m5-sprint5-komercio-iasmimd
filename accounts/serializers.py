@@ -8,7 +8,17 @@ from .models import Account
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ["id", "username", "password", "first_name", "last_name", "is_seller", "date_joined", "is_superuser", "is_active"]
+        fields = [
+            "id",
+            "username",
+            "password",
+            "first_name",
+            "last_name",
+            "is_seller",
+            "date_joined",
+            "is_superuser",
+            "is_active",
+        ]
         validators = [
             UniqueTogetherValidator(
                 queryset=Account.objects.all(), fields=["username"]
@@ -24,7 +34,17 @@ class AccountSerializer(serializers.ModelSerializer):
 class AdminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ["id", "username", "password", "first_name", "last_name", "is_seller", "date_joined", "is_superuser", "is_active"]
+        fields = [
+            "id",
+            "username",
+            "password",
+            "first_name",
+            "last_name",
+            "is_seller",
+            "date_joined",
+            "is_superuser",
+            "is_active",
+        ]
         read_only_fields = ["date_joined", "is_superuser"]
         extra_kwargs = {"password": {"write_only": True}}
 

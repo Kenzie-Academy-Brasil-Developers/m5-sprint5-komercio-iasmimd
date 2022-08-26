@@ -34,6 +34,7 @@ class AdminDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AdminSerializer
 
+
 class AccountNewestView(generics.ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
