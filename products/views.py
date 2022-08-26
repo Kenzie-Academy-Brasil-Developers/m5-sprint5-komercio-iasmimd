@@ -4,7 +4,7 @@ from rest_framework.authentication import TokenAuthentication
 from commerce.pages import CustomPageNumberPagination
 
 from .mixin import SerializerByMethodMixin
-from .permissions import ProductPermissionsCustom
+from .permissions import ProductPermissionsCustom, AdminSellerPermissionsCustom
 from .models import Product
 from .serializers import ProductSerializer, ProductDetailSerializer
 
@@ -24,7 +24,7 @@ class ProductView(SerializerByMethodMixin, generics.ListCreateAPIView):
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [ProductPermissionsCustom]
+    permission_classes = [AdminSellerPermissionsCustom]
 
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializer

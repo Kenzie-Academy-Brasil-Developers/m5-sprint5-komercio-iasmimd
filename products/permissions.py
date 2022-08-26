@@ -14,3 +14,15 @@ class ProductPermissionsCustom(permissions.BasePermission):
 
         if request.user.is_authenticated and obj.seller_id == request.user.id:
             return True
+
+
+class AdminSellerPermissionsCustom(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if (
+            request.method in ["PATCH"]
+            and request.user.is_seller
+            or request.user.is_superuser
+        ):
+            return request.user.id == obj.seller_id
