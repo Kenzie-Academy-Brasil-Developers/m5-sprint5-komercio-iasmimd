@@ -9,7 +9,6 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = [
-            "id",
             "username",
             "password",
             "first_name",

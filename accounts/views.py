@@ -39,6 +39,8 @@ class AccountNewestView(generics.ListAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
+    pagination_class = CustomPageNumberPagination
+
     def get_queryset(self):
         newest_accounts = self.kwargs["num"]
 
